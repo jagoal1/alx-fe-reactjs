@@ -2,7 +2,7 @@ import './App.css';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import Footer from './components/Footer';
-import UserProfile from './components/UserProfile';
+import UserProfile from './components/UserProfile'; // ✅ must be exactly this
 
 function App() {
   return (
