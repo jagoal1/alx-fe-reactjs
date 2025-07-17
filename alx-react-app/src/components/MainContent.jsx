@@ -1,9 +1,9 @@
-const MainContent = () => {
+function MainContent() {
   return (
-    <main>
-      <p>I love to visit New York, Paris, and Tokyo.</p>
+    <main style={{ padding: '20px', backgroundColor: '#f2f2f2' }}>
+      <p style={{ fontSize: '18px' }}>Explore the cities you love the most!</p>
     </main>
   );
-};
+}
 
 export default MainContent;
