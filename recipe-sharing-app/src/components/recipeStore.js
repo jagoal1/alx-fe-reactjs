@@ -1,53 +1,28 @@
-import { create } from 'zustand';
+import create from 'zustand';
 
-export const useRecipeStore = create((set, get) => ({
+export const useRecipeStore = create(set => ({
   recipes: [],
-  filteredRecipes: [],
-  searchTerm: '',
 
-  setRecipes: (recipes) =>
-    set({ recipes, filteredRecipes: recipes }),
+  // Favorites
+  favorites: [],
+  addFavorite: (recipeId) =>
+    set(state => ({
+      favorites: state.favorites.includes(recipeId)
+        ? state.favorites
+        : [...state.favorites, recipeId],
+    })),
+  removeFavorite: (recipeId) =>
+    set(state => ({
+      favorites: state.favorites.filter(id => id !== recipeId),
+    })),
 
-  addRecipe: (newRecipe) =>
-    set((state) => {
-      const updated = [...state.recipes, newRecipe];
-      return {
-        recipes: updated,
-        filteredRecipes: filterBySearch(updated, state.searchTerm),
-      };
-    }),
-
-  deleteRecipe: (id) =>
-    set((state) => {
-      const updated = state.recipes.filter((recipe) => recipe.id !== id);
-      return {
-        recipes: updated,
-        filteredRecipes: filterBySearch(updated, state.searchTerm),
-      };
-    }),
-
-  updateRecipe: (updatedRecipe) =>
-    set((state) => {
-      const updated = state.recipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+  // Recommendations
+  recommendations: [],
+  generateRecommendations: () =>
+    set(state => {
+      const recommended = state.recipes.filter(recipe =>
+        state.favorites.includes(recipe.id) && Math.random() > 0.5
       );
-      return {
-        recipes: updated,
-        filteredRecipes: filterBySearch(updated, state.searchTerm),
-      };
+      return { recommendations: recommended };
     }),
-
-  setSearchTerm: (term) => {
-    const recipes = get().recipes;
-    set({
-      searchTerm: term,
-      filteredRecipes: filterBySearch(recipes, term),
-    });
-  },
 }));
-
-function filterBySearch(recipes, term) {
-  return recipes.filter((recipe) =>
-    recipe.title.toLowerCase().includes(term.toLowerCase())
-  );
-}

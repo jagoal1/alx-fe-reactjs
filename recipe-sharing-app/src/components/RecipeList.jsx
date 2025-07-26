@@ -1,26 +1,22 @@
-import { useRecipeStore } from './recipeStore';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { useRecipeStore } from '../store/recipeStore';
 
-const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.filteredRecipes);
+const RecipeCard = ({ recipe }) => {
+  const favorites = useRecipeStore(state => state.favorites);
+  const addFavorite = useRecipeStore(state => state.addFavorite);
+  const removeFavorite = useRecipeStore(state => state.removeFavorite);
+
+  const isFavorite = favorites.includes(recipe.id);
 
   return (
     <div>
-      <h2>Filtered Recipes</h2>
-      {recipes.length === 0 ? (
-        <p>No recipes match your search.</p>
-      ) : (
-        recipes.map((recipe) => (
-          <div key={recipe.id} style={{ marginBottom: '1rem' }}>
-            <h3>
-              <Link to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
-            </h3>
-            <p>{recipe.description}</p>
-          </div>
-        ))
-      )}
+      <h3>{recipe.title}</h3>
+      <p>{recipe.description}</p>
+      <button onClick={() => isFavorite ? removeFavorite(recipe.id) : addFavorite(recipe.id)}>
+        {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+      </button>
     </div>
   );
 };
 
-export default RecipeList;
+export default RecipeCard;
