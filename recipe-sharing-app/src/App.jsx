@@ -12,8 +12,8 @@ const App = () => {
         <h1>Recipe Sharing App</h1>
         <SearchBar />
         <AddRecipeForm />
-        <RecipeList />
         <Routes>
+          <Route path="/" element={<RecipeList />} />
           <Route path="/recipes/:id" element={<RecipeDetails />} />
         </Routes>
       </div>
