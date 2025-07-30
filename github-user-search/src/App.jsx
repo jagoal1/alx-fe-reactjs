@@ -1,10 +1,11 @@
 import React from 'react';
+import Search from './components/Search';
 
 function App() {
   return (
-    <div>
+    <div style={{ textAlign: 'center', marginTop: '2rem' }}>
       <h1>GitHub User Search</h1>
-      <p>Start searching GitHub users...</p>
+      <Search />
     </div>
   );
 }
