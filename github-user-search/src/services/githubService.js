@@ -1,25 +1,31 @@
-import axios from 'axios';
+export const fetchUserData = async (username, location, minRepos) => {
+  const apiUrl = `https://api.github.com/search/users?q=${username ? `${username}+` : ''}type:user&per_page=10`;
 
-export const fetchUserData = async (username = '', location = '', minRepos = '') => {
   try {
-    let query = '';
-    if (username) query += `${username}`;
-    if (location) query += `+location:${location}`;
-    if (minRepos) query += `+repos:>${minRepos}`;
+    const response = await fetch(apiUrl);
+    const result = await response.json();
 
-    const searchRes = await axios.get(`https://api.github.com/search/users?q=${query}`);
-    const users = searchRes.data.items;
+    if (!result.items || result.items.length === 0) return [];
 
-    // Fetch detailed data for each user
-    const detailedUsers = await Promise.all(
-      users.map(async (user) => {
-        const userRes = await axios.get(`https://api.github.com/users/${user.login}`);
-        return userRes.data;
+    const userDetails = await Promise.all(
+      result.items.map(async (user) => {
+        const res = await fetch(user.url);
+        return await res.json();
       })
     );
 
-    return detailedUsers;
+    // Apply additional filters: location and minimum repositories
+    const filteredUsers = userDetails.filter((user) => {
+      const locationMatch = location
+        ? user.location?.toLowerCase().includes(location.toLowerCase())
+        : true;
+      const repoMatch = minRepos ? user.public_repos >= parseInt(minRepos) : true;
+      return locationMatch && repoMatch;
+    });
+
+    return filteredUsers;
   } catch (error) {
-    throw error;
+    console.error('Error fetching user data:', error);
+    return [];
   }
 };

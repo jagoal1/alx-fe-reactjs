@@ -8,12 +8,14 @@ const Search = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [searched, setSearched] = useState(false); // new state to track submission
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(false);
     setUsers([]);
+    setSearched(true); // mark as searched
 
     try {
       const data = await fetchUserData(username, location, minRepos);
@@ -65,7 +67,10 @@ const Search = () => {
       </form>
 
       {loading && <p className="text-center">Loading...</p>}
-      {error && <p className="text-center text-red-500">Looks like we can't find the user</p>}
+
+      {users.length === 0 && searched && !loading && (
+        <p className="text-center text-red-500">Looks like we can't find the user</p>
+      )}
 
       {users.length > 0 && (
         <div className="grid gap-4">
