@@ -26,7 +26,6 @@ const RegistrationForm = () => {
     setErrors("");
 
     try {
-      // Mock API call
       const response = await fetch("https://jsonplaceholder.typicode.com/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
