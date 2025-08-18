@@ -8,6 +8,7 @@ const FormikForm = () => {
     password: "",
   };
 
+  // Yup validation schema
   const validationSchema = Yup.object({
     username: Yup.string().required("Username is required"),
     email: Yup.string().email("Invalid email format").required("Email is required"),
@@ -16,7 +17,7 @@ const FormikForm = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      // Mock API simulation
+      // Mock API call
       const response = await fetch("https://jsonplaceholder.typicode.com/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
