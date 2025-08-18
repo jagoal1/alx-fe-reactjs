@@ -17,7 +17,6 @@ const FormikForm = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      // Mock API call
       const response = await fetch("https://jsonplaceholder.typicode.com/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
