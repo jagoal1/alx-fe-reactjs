@@ -1,28 +1,16 @@
 import { useState } from "react";
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.email || !formData.password) {
+    // Basic validation logic
+    if (!username || !email || !password) {
       setError("All fields are required!");
       return;
     }
@@ -30,16 +18,18 @@ const RegistrationForm = () => {
     setError("");
 
     try {
-      // Mock API simulation
+      // Mock API call
       const response = await fetch("https://jsonplaceholder.typicode.com/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ username, email, password }),
       });
 
       if (response.ok) {
         alert("User registered successfully!");
-        setFormData({ username: "", email: "", password: "" });
+        setUsername("");
+        setEmail("");
+        setPassword("");
       }
     } catch (err) {
       console.error("Error:", err);
@@ -56,8 +46,8 @@ const RegistrationForm = () => {
         type="text"
         name="username"
         placeholder="Username"
-        value={formData.username}
-        onChange={handleChange}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         className="border p-2 mb-2 w-full rounded"
       />
 
@@ -65,8 +55,8 @@ const RegistrationForm = () => {
         type="email"
         name="email"
         placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         className="border p-2 mb-2 w-full rounded"
       />
 
@@ -74,8 +64,8 @@ const RegistrationForm = () => {
         type="password"
         name="password"
         placeholder="Password"
-        value={formData.password}
-        onChange={handleChange}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         className="border p-2 mb-4 w-full rounded"
       />
 
