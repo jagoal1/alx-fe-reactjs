@@ -6,9 +6,9 @@ const FormikForm = () => {
   const initialValues = { username: "", email: "", password: "" };
 
   const validationSchema = Yup.object({
-    username: Yup.string().min(3, "Too short").required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string().min(6, "Min 6 characters").required("Required"),
+    username: Yup.string().min(3, "Too short").required("Username is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string().min(6, "Min 6 characters").required("Password is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting, setStatus }) => {
@@ -42,19 +42,23 @@ const FormikForm = () => {
           <Form>
             <div>
               <Field type="text" name="username" placeholder="Username" />
-              <ErrorMessage name="username" component="div" />
+              <ErrorMessage name="username" component="p" style={{ color: "red" }} />
             </div>
+
             <div>
               <Field type="email" name="email" placeholder="Email" />
-              <ErrorMessage name="email" component="div" />
+              <ErrorMessage name="email" component="p" style={{ color: "red" }} />
             </div>
+
             <div>
               <Field type="password" name="password" placeholder="Password" />
-              <ErrorMessage name="password" component="div" />
+              <ErrorMessage name="password" component="p" style={{ color: "red" }} />
             </div>
+
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Registering..." : "Register"}
             </button>
+
             {status && <p>{status}</p>}
           </Form>
         )}
