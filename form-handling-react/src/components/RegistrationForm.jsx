@@ -21,13 +21,13 @@ const RegistrationForm = () => {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // valid if no errors
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validate()) return; // stop if errors
+    if (!validate()) return;
 
     try {
       const response = await fetch("https://reqres.in/api/register", {
@@ -39,29 +39,4 @@ const RegistrationForm = () => {
       if (!response.ok) throw new Error("Registration failed");
 
       const data = await response.json();
-      setMessage(`User registered successfully! Token: ${data.token}`);
-    } catch (error) {
-      setMessage("Registration failed. Try again.");
-    }
-  };
-
-  return (
-    <div>
-      <h2>Register (Controlled)</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
-        </div>
-
-        <div>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
+      setMessage(`User r
