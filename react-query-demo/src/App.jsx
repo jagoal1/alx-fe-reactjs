@@ -1,11 +1,20 @@
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
-import Home from "./components/Home";
-import Blog from "./components/Blog";
-import BlogPost from "./components/BlogPost";
-import Profile from "./components/Profile";
-import Login from "./components/Login";
-import NotFound from "./components/NotFound";
-import ProtectedRoute from "./components/ProtectedRoute";
+import { BrowserRouter, Routes, Route, Link, Navigate, Outlet } from "react-router-dom";
+import Home from "../../react-router-advanced/pages/home";
+import Blog from "../../react-router-advanced/pages/blog";
+import BlogPost from "../../react-router-advanced/pages/BlogPost";
+import Profile from "../../react-router-advanced/src/components/Profile";
+import Login from "../../react-router-advanced/src/components/Login";
+import NotFound from "../../react-router-advanced/src/components/NotFound";
+
+// Fake authentication
+const isAuthenticated = false;
+
+function ProtectedRoute() {
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  return <Outlet />;
+}
 
 export default function App() {
   return (
@@ -21,7 +30,7 @@ export default function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
 
-        {/* Protected Route with nested Profile */}
+        {/* Protected Profile route with nested routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/profile/*" element={<Profile />} />
         </Route>
