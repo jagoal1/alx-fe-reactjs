@@ -11,19 +11,18 @@ export default function PostsComponent() {
 
   const {
     data: posts,
-    isPending,         // initial load
-    isFetching,        // background refetch indicator
+    isLoading,       
+    isFetching,      
     isError,
     error,
     refetch,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    // show only first 15 to keep UI compact
     select: (data) => data.slice(0, 15),
   });
 
-  if (isPending) return <p style={{ padding: 16 }}>Loading posts…</p>;
+  if (isLoading) return <p style={{ padding: 16 }}>Loading posts…</p>;   // ✅ uses isLoading
   if (isError) return <p style={{ padding: 16, color: "crimson" }}>Error: {error.message}</p>;
 
   return (
