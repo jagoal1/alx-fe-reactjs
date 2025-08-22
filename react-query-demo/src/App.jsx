@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import Profile from "./pages/Profile";
-import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import Home from "./components/Home";
+import Blog from "./components/Blog";
+import BlogPost from "./components/BlogPost";
+import Profile from "./components/Profile";
+import Login from "./components/Login";
+import NotFound from "./components/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
 
-        {/* Protected Profile route with nested routes */}
+        {/* Protected Route with nested Profile */}
         <Route element={<ProtectedRoute />}>
           <Route path="/profile/*" element={<Profile />} />
         </Route>
