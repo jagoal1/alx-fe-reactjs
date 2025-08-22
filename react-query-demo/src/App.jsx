@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import PostsComponent from "./PostsComponent.jsx";
+import PostsComponent from "./components/PostsComponent.jsx";
 
 // ✅ move QueryClient here
 const queryClient = new QueryClient();
