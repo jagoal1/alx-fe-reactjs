@@ -1,6 +1,6 @@
 import { Link, Routes, Route } from "react-router-dom";
 import ProfileDetails from "./ProfileDetails";
-import ProfileSettings from "../../pages/ProfileSettings";
+import ProfileSettings from "./ProfileSettings";
 
 export default function Profile() {
   return (
