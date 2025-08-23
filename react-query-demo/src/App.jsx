@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Link, Navigate, Outlet } from "react-router-dom";
-import Home from "../../react-router-advanced/pages/home";
-import Blog from "../../react-router-advanced/pages/blog";
-import BlogPost from "../../react-router-advanced/pages/BlogPost";
+import Home from "../../react-router-advanced/src/components/home";
+import Blog from "../../react-router-advanced/src/components/blog";
+import BlogPost from "../../react-router-advanced/src/components/BlogPost";
 import Profile from "../../react-router-advanced/src/components/Profile";
 import Login from "../../react-router-advanced/src/components/Login";
 import NotFound from "../../react-router-advanced/src/components/NotFound";
